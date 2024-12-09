@@ -69,7 +69,8 @@ export default function Upload() {
             formData.append("file" + i, files[i]);
         }
         try {
-            await UploadPropertyDetails(JSON.stringify(data), formData);
+            const res = await UploadPropertyDetails(JSON.stringify(data), formData);
+            console.log(res)
         } catch (error) {
             console.log("Errrrr", error)
         } finally {
@@ -588,8 +589,7 @@ export default function Upload() {
                             </FormItem>
                         )}
                     />
-                    {/* {isPending ? <Button disabled className="disabled:bg-slate-500" type="submit"><Loader className="animate-spin" /></Button> : <Button type="submit">Upload</Button>} */}
-                    <Button type="submit">Upload</Button>
+                    {isPending ? <Button disabled className="disabled:bg-slate-500" type="submit"><Loader className="animate-spin" /></Button> : <Button type="submit">Upload</Button>}
                 </form>
             </Form>
         </div >

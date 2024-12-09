@@ -13,7 +13,6 @@ export default function Properties() {
             (async () => {
                 try {
                     const response = await getPropertyDetails();
-                    console.log({ response });
                     setData(response);
                 } catch (error) {
                     setData([]);
@@ -23,12 +22,16 @@ export default function Properties() {
     }, []);
 
     if (isPending) {
-        return <CardSkeleton />
+        return (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-[90%] mx-auto space-y-4">
+                {Array.from({ length: 12 }).map((_, i) => <CardSkeleton key={i} />)}
+            </div>
+        )
     }
 
     return (
         <div className="grid grid-cols-4 w-[90%] mx-auto space-x-5 space-y-5 pt-10">
-            {data?.map((element: any) => {
+            {data && data.map((element: any) => {
                 return <PropertyCard key={element.id} data={element} />
             })}
         </div>

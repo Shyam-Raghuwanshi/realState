@@ -35,7 +35,6 @@ export const UploadPropertyDetails = async (values: string, files: FormData) => 
             return { error: "Unauthorized Admin" }
         }
 
-
         const user = await db.user.findFirst({
             where: {
                 id: session.user.id!,
@@ -46,7 +45,6 @@ export const UploadPropertyDetails = async (values: string, files: FormData) => 
             return { error: "Unauthorized Admin" }
         }
         const urls: string[] = [];
-
         await Promise.all(
             Array.from(files).map(async (value) => {
 
@@ -69,11 +67,10 @@ export const UploadPropertyDetails = async (values: string, files: FormData) => 
                 );
             })
         );
-
         const { area, bathrooms, hasBalcony, hasGardenYard, hasSwimmingPool, bedrooms, parkingSpots } = data.feature;
         const { email, name, phone } = data.contact;
         const { altitude, city, landmark, latitude, region, state, streetAddress, zip } = data.location;
-        const res = await db.property.create({
+        await db.property.create({
             data: {
                 name: data.name,
                 description: data.description,
@@ -123,9 +120,8 @@ export const UploadPropertyDetails = async (values: string, files: FormData) => 
 
             }
         })
-        console.log({ res })
         return {
-            success: "Settings Updated"
+            success: "Upload successfully"
         }
     } catch (error) {
         console.log(error)
@@ -155,7 +151,22 @@ export const getPropertyDetails = async () => {
         });
         return res;
     } catch (error) {
-        return "Internal Server error"
+        console.log(error)
+        return []
+    }
+}
+
+export const getPropertyById = async (id: number) => {
+    try {
+        const res = await db.property.findFirst({
+            where: {
+                id
+            }
+        })
+        return res;
+    } catch (error) {
+        console.log(error)
+        return []
     }
 }
 

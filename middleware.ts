@@ -17,10 +17,18 @@ export default auth(async (req) => {
   const isLoggedIn = !!req.auth;
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix);
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+  let isPublicRoute = publicRoutes.includes(nextUrl.pathname);
+  if (!isPublicRoute) {
+    isPublicRoute = publicRoutes.some((route) => {
+      if (typeof route === "string") {
+        return nextUrl.pathname === route;
+      }
+      return route.test(nextUrl.pathname);
+    });
+  }
+  
   const isAuthRoute = authRoutes.includes(nextUrl.pathname);
   const isAdminRoute = adminRoutes.includes(nextUrl.pathname);
-
   if (isApiAuthRoute) {
     return null;
   }

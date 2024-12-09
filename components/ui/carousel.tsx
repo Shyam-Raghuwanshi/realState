@@ -198,7 +198,7 @@ const CarouselPrevious = React.forwardRef<
   React.ComponentProps<typeof Button>
 >(({ className, variant = "outline", size = "icon", ...props }, ref) => {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel()
-
+  const newClassName = className?.split(" ").filter((c) => c !== "group-hover:flex").join(" ")
   return (
     <Button
       ref={ref}
@@ -206,12 +206,12 @@ const CarouselPrevious = React.forwardRef<
       size={size}
       className={cn(
         "absolute h-8 w-8 rounded-full",
+        !canScrollPrev && "hidden",
         orientation === "horizontal"
           ? "left-4 top-1/2 -translate-y-1/2"
           : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
-        className
+        !canScrollPrev ? newClassName : className
       )}
-      disabled={!canScrollPrev}
       onClick={scrollPrev}
       {...props}
     >
@@ -227,7 +227,7 @@ const CarouselNext = React.forwardRef<
   React.ComponentProps<typeof Button>
 >(({ className, variant = "outline", size = "icon", ...props }, ref) => {
   const { orientation, scrollNext, canScrollNext } = useCarousel()
-
+  const newClassName = className?.split(" ").filter((c) => c !== "group-hover:flex").join(" ")
   return (
     <Button
       ref={ref}
@@ -238,9 +238,8 @@ const CarouselNext = React.forwardRef<
         orientation === "horizontal"
           ? "right-4 top-1/2 -translate-y-1/2"
           : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
-        className
+        !canScrollNext ? newClassName : className
       )}
-      disabled={!canScrollNext}
       onClick={scrollNext}
       {...props}
     >

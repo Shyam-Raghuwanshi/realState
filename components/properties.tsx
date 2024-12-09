@@ -23,14 +23,14 @@ export default function Properties() {
 
     if (isPending) {
         return (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-[90%] mx-auto space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-[90%] mx-auto gap-y-4 pt-5">
                 {Array.from({ length: 12 }).map((_, i) => <CardSkeleton key={i} />)}
             </div>
         )
     }
 
     return (
-        <div className="grid grid-cols-4 w-[90%] mx-auto space-x-5 space-y-5 pt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 w-[90%] mx-auto gap-5 pt-10">
             {data && data.map((element: any) => {
                 return <PropertyCard key={element.id} data={element} />
             })}

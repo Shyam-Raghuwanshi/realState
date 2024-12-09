@@ -161,6 +161,20 @@ export const getPropertyById = async (id: number) => {
         const res = await db.property.findFirst({
             where: {
                 id
+            },
+            select: {
+                id: true,
+                description: true,
+                name: true,
+                price: true,
+                statusId: true,
+                typeId: true,
+                contact: true,
+                location: true,
+                images: true,
+                feature: true,
+                type: true
+
             }
         })
         return res;

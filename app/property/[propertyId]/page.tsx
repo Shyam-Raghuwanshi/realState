@@ -33,11 +33,8 @@ import { SharePropertyButton } from "@/components/share-property"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
 
-export default function Page({ params }: { params: Promise<{ propertyIdParam: string }> }) {
-    let propertyId: number;
-    (async () => {
-        propertyId = Number((await params).propertyIdParam)
-    })();
+export default function Page({ params }: { params: Promise<{ propertyId: string }> }) {
+
 
     const [isPending, startTransition] = useTransition()
     const [data, setData] = useState<any>([])
@@ -45,6 +42,7 @@ export default function Page({ params }: { params: Promise<{ propertyIdParam: st
     useEffect(() => {
         startTransition(() => {
             (async () => {
+                const propertyId = Number((await params).propertyId)
                 const res = await getPropertyById(propertyId)
                 console.log(res)
                 setData(res)

@@ -78,7 +78,7 @@ export const UploadPropertyDetails = async (values: string, files: FormData) => 
                 statusId: data.statusId,
                 images: {
                     create: {
-                        url: urls
+                        urls
                     }
                 },
                 type: {

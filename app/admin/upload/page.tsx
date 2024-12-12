@@ -468,9 +468,13 @@ export default function Upload() {
                                     <FormLabel>parkingSpots</FormLabel>
                                     <FormControl>
                                         <Input
-                                            {...field}
+                                            onChange={(e) =>
+                                                field.onChange(
+                                                    e.target.checked ? e.target.value = "on" : e.target.value = "off",
+                                                    console.log(e.target.value)
+                                                )
+                                            }
                                             type="checkbox"
-                                            placeholder="parkingSpots"
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -485,9 +489,11 @@ export default function Upload() {
                                     <FormLabel>hasSwimmingPool</FormLabel>
                                     <FormControl>
                                         <Input
-                                            {...field}
-                                            type="checkbox"
-                                            placeholder="hasSwimmingPool"
+                                            onChange={(e) =>
+                                                field.onChange(
+                                                    e.target.checked ? e.target.value = "on" : e.target.value = "off"
+                                                )
+                                            }
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -502,9 +508,11 @@ export default function Upload() {
                                     <FormLabel>hasGardenYard</FormLabel>
                                     <FormControl>
                                         <Input
-                                            {...field}
-                                            type="checkbox"
-                                            placeholder="hasGardenYard"
+                                            onChange={(e) =>
+                                                field.onChange(
+                                                    e.target.checked ? e.target.value = "on" : e.target.value = "off"
+                                                )
+                                            }
                                         />
                                     </FormControl>
                                     <FormMessage />

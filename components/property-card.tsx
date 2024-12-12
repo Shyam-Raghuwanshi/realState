@@ -21,9 +21,9 @@ export default function PropertyCard({ data }: { data: any }) {
         <div>
             <Carousel className="group">
                 <Link href={`/property/${data.id}`}>
-                    <CarouselContent >
+                    <CarouselContent>
                         {data.images.url.map((url: string) => {
-                            return (<CarouselItem key={url}><img className="rounded-2xl" src={url} /></CarouselItem>)
+                            return (<CarouselItem key={url}><img loading="eager" className="rounded-2xl h-full w-full" src={url} /></CarouselItem>)
                         })}
                     </CarouselContent>
                 </Link>

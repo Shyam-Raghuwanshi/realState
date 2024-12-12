@@ -22,13 +22,13 @@ export default function GoogleMap({ latitude, altitude }: { latitude: number, al
                 map: map,
             });
         };
-    }, []);
+    }, [latitude, altitude]);
 
     window.addEventListener("resize", () => {
         setMapWith(window.outerWidth)
     })
     return (
-        <div>
+        <>
             <div id="map" className={cn("h-[485px]", `w-[${mapWith}px]`)} />
 
             <Script
@@ -36,6 +36,6 @@ export default function GoogleMap({ latitude, altitude }: { latitude: number, al
                 async
                 defer
             />
-        </div>
+        </>
     );
 }

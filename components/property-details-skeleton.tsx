@@ -5,6 +5,7 @@ import { Button } from "./ui/button"
 import { Hospital, School2 } from "lucide-react"
 import { FaRoad, FaWhatsapp } from "react-icons/fa"
 import Navbar from "./navbar"
+import Image from "next/image"
 
 export function PropertyDetailsSkeleton() {
     return (
@@ -30,28 +31,28 @@ export function PropertyDetailsSkeleton() {
                         <Separator />
                         <div className="grid grid-cols-2 h-[92px]">
                             <div className="flex space-y-2 items-center justify-start space-x-6">
-                                <img src="../../building.svg" className="h-[29px]" />
+                                <Image height={30} width={30} alt="img" src="../../building.svg" />
                                 <div className="flex flex-col space-y-[5px]">
                                     <div className="w-40 h-4 rounded-md animate-pulse bg-primary/10" />
                                     <div className="w-52 h-4 rounded-md animate-pulse bg-primary/10" />
                                 </div>
                             </div>
                             <div className="flex space-y-2 items-center justify-start space-x-6">
-                                <img src="../../building.svg" className="h-[29px]" />
+                                <Image height={30} width={30} alt="img" src="../../building.svg" />
                                 <div className="flex flex-col space-y-[5px]">
                                     <div className="w-40 h-4 rounded-md animate-pulse bg-primary/10" />
                                     <div className="w-52 h-4 rounded-md animate-pulse bg-primary/10" />
                                 </div>
                             </div>
                             <div className="flex space-y-2 items-center justify-start space-x-6">
-                                <img src="../../building.svg" className="h-[29px]" />
+                                <Image height={30} width={30} alt="img" src="../../building.svg" />
                                 <div className="flex flex-col space-y-[5px]">
                                     <div className="w-40 h-4 rounded-md animate-pulse bg-primary/10" />
                                     <div className="w-52 h-4 rounded-md animate-pulse bg-primary/10" />
                                 </div>
                             </div>
                             <div className="flex space-y-2 items-center justify-start space-x-6">
-                                <img src="../../building.svg" className="h-[29px]" />
+                                <Image height={30} width={30} alt="img" src="../../building.svg" />
                                 <div className="flex flex-col space-y-[5px]">
                                     <div className="w-40 h-4 rounded-md animate-pulse bg-primary/10" />
                                     <div className="w-52 h-4 rounded-md animate-pulse bg-primary/10" />
@@ -72,19 +73,19 @@ export function PropertyDetailsSkeleton() {
                             <span className="text-[32px]">Amenities offered</span>
                             <div className="flex flex-col space-y-2 h-[100px]">
                                 <div className="flex space-x-[8px]">
-                                    <img src="../../building.svg" className="h-[28px]" />
+                                    <Image height={30} width={30} alt="img" src="../../building.svg" />
                                     <div className="flex flex-col space-y-[5px]">
                                         <div className="w-52 h-4 rounded-md animate-pulse bg-primary/10" />
                                     </div>
                                 </div>
                                 <div className="flex space-x-[8px]">
-                                    <img src="../../building.svg" className="h-[28px]" />
+                                    <Image height={30} width={30} alt="img" src="../../building.svg" />
                                     <div className="flex flex-col space-y-[5px]">
                                         <div className="w-52 h-4 rounded-md animate-pulse bg-primary/10" />
                                     </div>
                                 </div>
                                 <div className="flex space-x-[8px]">
-                                    <img src="../../building.svg" className="h-[28px]" />
+                                    <Image height={30} width={30} alt="img" src="../../building.svg" />
                                     <div className="flex flex-col space-y-[5px]">
                                         <div className="w-52 h-4 rounded-md animate-pulse bg-primary/10" />
                                     </div>

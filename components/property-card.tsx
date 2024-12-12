@@ -13,6 +13,7 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from "@/components/ui/carousel"
+import Image from "next/image"
 import Link from "next/link"
 
 export default function PropertyCard({ data }: { data: any }) {
@@ -22,8 +23,8 @@ export default function PropertyCard({ data }: { data: any }) {
             <Carousel className="group">
                 <Link href={`/property/${data.id}`}>
                     <CarouselContent>
-                        {data.images.url.map((url: string) => {
-                            return (<CarouselItem key={url}><img loading="eager" className="rounded-2xl h-full w-full" src={url} /></CarouselItem>)
+                        {data.images.urls.map((url: string) => {
+                            return (<CarouselItem key={url}><Image width={400} height={400} alt="img" loading="eager" className="rounded-2xl" src={url} /></CarouselItem>)
                         })}
                     </CarouselContent>
                 </Link>

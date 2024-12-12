@@ -25,36 +25,45 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
 
   const existingUser = await getUserByEmail(email);
   const twoFactorToken = await getTwoFactorTokenByEmail(email);
+
   if (code && twoFactorToken?.token == code) {
-    await db.user.update({
-      where: {
-        id: existingUser?.id
-      },
-      data: {
-        emailVerified: new Date(),
-        email: existingUser?.email
-      }
-    });
-    const twoFactorToken = await getTwoFactorTokenByEmail(email);
-    const signInPromises = signIn("credentials", {
-      email,
-      password,
-      redirectTo: DEFAULT_LOGIN_REDIRECT,
-    })
-    const twoFactorPromises = db.twoFactorToken.delete({
-      where: {
-        id: twoFactorToken?.id
-      }
-    });
-    await Promise.all([signInPromises, twoFactorPromises])
-    return { success: "Login successful" }
+    try {
+      await db.user.update({
+        where: {
+          id: existingUser?.id,
+        },
+        data: {
+          emailVerified: new Date(),
+          email: existingUser?.email,
+        },
+      });
+      const twoFactorToken = await getTwoFactorTokenByEmail(email);
+      const signInPromises = signIn("credentials", {
+        email,
+        password,
+        redirectTo: DEFAULT_LOGIN_REDIRECT,
+      });
+      const twoFactorPromises = db.twoFactorToken.delete({
+        where: {
+          id: twoFactorToken?.id,
+        },
+      });
+      await Promise.all([signInPromises, twoFactorPromises]);
+      return { success: "Register successful" };
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   if (existingUser && twoFactorToken) {
     const twoFactor = await generateTwoFactorToken(email);
     const generatedCode = twoFactor.token;
     await sendVerificationEmail(email, generatedCode);
-    return { success: "Confirmation email sent", token: generatedCode, twoFactor: true };
+    return {
+      success: "Confirmation email sent",
+      token: generatedCode,
+      twoFactor: true,
+    };
   }
 
   if (existingUser) {
@@ -68,10 +77,10 @@ export const register = async (values: z.infer<typeof RegisterSchema>) => {
       password: hashedPassword,
     },
   });
+
   const twoFactor = await generateTwoFactorToken(email);
   const generatedCode = twoFactor.token;
   await sendVerificationEmail(email, generatedCode);
 
   return { twoFactor: true };
-
 };

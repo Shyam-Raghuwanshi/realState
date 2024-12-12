@@ -3,12 +3,12 @@ import BottomNav from "@/components/bottom-nav";
 import Properties from "@/components/properties";
 
 export default function Home() {
-  
+
   return (
-    <>
+    <main className="w-full">
       <Navbar />
-      <Properties/>
+      <Properties />
       <BottomNav />
-    </>
+    </main>
   )
 }

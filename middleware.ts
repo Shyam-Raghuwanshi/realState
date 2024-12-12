@@ -45,9 +45,9 @@ export default auth(async (req) => {
   }
 
   const email = req.auth?.user?.email!;
-  const user = await getUserRoleByEmail(email)
+  // const user = await getUserRoleByEmail(email)
 
-  if (isAdminRoute && email !== process.env.ADMIN_EMAIL && user?.role !== "ADMIN") {
+  if (isAdminRoute && email !== process.env.ADMIN_EMAIL) {
     return Response.redirect(new URL("/auth/login-as-admin", nextUrl));
   }
 

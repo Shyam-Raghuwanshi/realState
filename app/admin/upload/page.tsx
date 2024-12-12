@@ -470,8 +470,7 @@ export default function Upload() {
                                         <Input
                                             onChange={(e) =>
                                                 field.onChange(
-                                                    e.target.checked ? e.target.value = "on" : e.target.value = "off",
-                                                    console.log(e.target.value)
+                                                    e.target.checked ? field.value = true : field.value = false
                                                 )
                                             }
                                             type="checkbox"
@@ -491,9 +490,10 @@ export default function Upload() {
                                         <Input
                                             onChange={(e) =>
                                                 field.onChange(
-                                                    e.target.checked ? e.target.value = "on" : e.target.value = "off"
+                                                    e.target.checked ? field.value = true : field.value = false
                                                 )
                                             }
+                                            type="checkbox"
                                         />
                                     </FormControl>
                                     <FormMessage />
@@ -510,9 +510,10 @@ export default function Upload() {
                                         <Input
                                             onChange={(e) =>
                                                 field.onChange(
-                                                    e.target.checked ? e.target.value = "on" : e.target.value = "off"
+                                                    e.target.checked ? field.value = true : field.value = false
                                                 )
                                             }
+                                            type="checkbox"
                                         />
                                     </FormControl>
                                     <FormMessage />

@@ -18,7 +18,7 @@ export default function Navbar() {
     const data = useCurrentUser()
     const userId = data?.id
     return (
-        <div className="flex justify-center md:justify-between h-20 items-center border-b-[1px] px-2 md:px-16">
+        <div className="flex w-[638px] sm:w-auto justify-center md:justify-between h-20 items-center border-b-[1px] px-2 md:px-16">
             <Logo />
             <InputForm />
             <DropdownMenu>

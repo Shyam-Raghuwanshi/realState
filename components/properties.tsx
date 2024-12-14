@@ -1,5 +1,5 @@
 "use client"
-import { useEffect, useState, useTransition } from "react";
+import { useCallback, useEffect, useState, useTransition } from "react";
 import PropertyCard from "./property-card";
 import { getPropertyDetails } from "@/actions/handleProperty";
 import { CardSkeleton } from "./card-skeleton";
@@ -8,7 +8,7 @@ export default function Properties() {
     const [isPending, startTransition] = useTransition();
     const [data, setData] = useState<any>([]);
 
-    useEffect(() => {
+    const loadData = useCallback(() => {
         startTransition(() => {
             (async () => {
                 try {
@@ -20,6 +20,11 @@ export default function Properties() {
             })();
         });
     }, []);
+
+    useEffect(() => {
+        loadData()
+    }, [])
+
 
     if (isPending) {
         return (

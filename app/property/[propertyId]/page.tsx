@@ -61,13 +61,13 @@ export default function Page({ params }: { params: Promise<{ propertyId: string 
     const { phone, email, } = contact;
     const { streetAddress, city, state, zip, region, landmark, altitude, latitude, } = location;
     const { urls } = images;
-
+    
     return (
         <>
             <Navbar />
-            <div className="mx-auto flex flex-col justify-center items-center mt-4">
+            <div className="w-[638px] sm:w-auto flex flex-col justify-center items-center mt-4 pb-10 ">
                 <Dialog>
-                    <div className="flex space-x-2 lg:grid lg:grid-cols-2 h-[426px] px-0 sm:px-4 md:px-10">
+                    <div className="flex space-x-2 lg:grid lg:grid-cols-2 h-[426px] w-[638px] sm:w-full px-0 sm:px-4 md:px-10">
                         <DialogTrigger className="h-[426px]">
                             <div className="h-[426px] w-[638px] sm:w-auto">
                                 <Image height={400} width={400} className="w-full h-full object-cover" src={urls[0]} alt="img" />
@@ -118,7 +118,7 @@ export default function Page({ params }: { params: Promise<{ propertyId: string 
                         </div>
                     </DialogContent>
                 </Dialog>
-                <div className="flex mx-auto space-x-16 py-6 px-5 sm:px-28">
+                <div className="flex mx-auto space-x-16 py-6 px-5 sm:px-[35px]">
                     <div className="w-full flex flex-col space-y-9 border-b-[1px]">
                         <div className="flex flex-col space-y-6">
                             <span className="text-4xl">{name}</span>
@@ -215,7 +215,7 @@ export default function Page({ params }: { params: Promise<{ propertyId: string 
                     </span>
 
                     <div className="flex flex-col">
-                        <span className="text-[16px]">{streetAddress},{" "}{city},{" "} {state}</span>
+                        <span className="text-[16px] ">{streetAddress},{" "}{city},{" "} {state}</span>
                         <GoogleMap latitude={latitude} altitude={altitude} />
                     </div>
                     <div className="flex flex-col space-y-4">

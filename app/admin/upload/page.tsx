@@ -459,13 +459,13 @@ export default function Upload() {
                             </FormItem>
                         )}
                     />
-                    <div className="flex space-x-8">
+                    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                         <FormField
                             name="feature.hasBalcony"
                             control={control}
                             render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>parkingSpots</FormLabel>
+                                <FormItem className="flex space-x-2 items-center w-40">
+                                    <FormLabel>ParkingSpots</FormLabel>
                                     <FormControl>
                                         <Input
                                             onChange={(e) =>
@@ -484,8 +484,8 @@ export default function Upload() {
                             name="feature.hasSwimmingPool"
                             control={control}
                             render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>hasSwimmingPool</FormLabel>
+                                <FormItem className="flex space-x-2 items-center w-40">
+                                    <FormLabel>Has Swimming Pool</FormLabel>
                                     <FormControl>
                                         <Input
                                             onChange={(e) =>
@@ -504,8 +504,8 @@ export default function Upload() {
                             name="feature.hasGardenYard"
                             control={control}
                             render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>hasGardenYard</FormLabel>
+                                <FormItem className="flex space-x-2 items-center w-40">
+                                    <FormLabel>Has Garden Yard</FormLabel>
                                     <FormControl>
                                         <Input
                                             onChange={(e) =>

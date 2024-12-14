@@ -1,7 +1,7 @@
 "use client";
 
 import * as z from "zod";
-import { useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterSchema } from "@/schemas";
@@ -33,6 +33,7 @@ export const RegisterForm = () => {
       email: "",
       password: "",
       name: "",
+      code: "",
     },
   });
 
@@ -50,7 +51,7 @@ export const RegisterForm = () => {
           if (data?.success) {
             form.reset();
             setSuccess(data.success);
-            // router.push("/settings");
+            router.push("/");
           }
           if (data?.twoFactor) {
             setShowTwoFactor(true);
@@ -60,6 +61,12 @@ export const RegisterForm = () => {
         });;
     });
   };
+
+  useEffect(() => {
+    if (showTwoFactor) {
+      form.setValue("code", "");
+    }
+  }, [showTwoFactor, form]);
 
   return (
     <CardWrapper

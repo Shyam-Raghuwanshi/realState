@@ -30,7 +30,6 @@ export default function GoogleMap({ latitude, altitude }: { latitude: number, al
     return (
         <>
             <div id="map" className={cn("h-[485px]", `w-[${mapWith}px]`)} />
-
             <Script
                 src={`https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`}
                 async

@@ -1,6 +1,6 @@
 "use client"
 import Logo from "./logo"
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar"
+import { Avatar, AvatarFallback } from "./ui/avatar"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -8,7 +8,6 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "./ui/dropdown-menu"
-import { Button } from "./ui/button"
 import InputForm from "./input-form"
 import Link from "next/link"
 import { useCurrentUser } from "@/hooks/use-current-user";
@@ -31,7 +30,7 @@ export default function Navbar() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                     {!userId ? (<>
-                        <DropdownMenuItem><Link href={"/auth/signup"}>Sign up</Link></DropdownMenuItem>
+                        <DropdownMenuItem><Link href={"/auth/register"}>Sign up</Link></DropdownMenuItem>
                         <DropdownMenuItem><Link href={"/auth/login"}>Log in</Link></DropdownMenuItem>
                     </>) :
                         <DropdownMenuItem className="text-red-400 hover:text-red-500" onClick={() => {
@@ -39,7 +38,7 @@ export default function Navbar() {
                             redirect("/")
                         }}>Logout</DropdownMenuItem>
                     }
-                    <DropdownMenuItem><Link href={"/login-as-admin"}>Log in as Admin</Link></DropdownMenuItem>
+                    <DropdownMenuItem><Link href={"/auth/login-as-admin"}>Log in as Admin</Link></DropdownMenuItem>
                     {/* <DropdownMenuLabel>My Account</DropdownMenuLabel> */}
                     <DropdownMenuSeparator />
                 </DropdownMenuContent>

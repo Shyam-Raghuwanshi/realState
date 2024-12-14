@@ -17,14 +17,13 @@ import Image from "next/image"
 import Link from "next/link"
 
 export default function PropertyCard({ data }: { data: any }) {
-    // console.log({data})
     return (
         <div>
             <Carousel className="group">
                 <Link href={`/property/${data.id}`}>
                     <CarouselContent>
                         {data.images.urls.map((url: string) => {
-                            return (<CarouselItem key={url}><Image width={400} height={400} alt="img" loading="eager" className="rounded-2xl" src={url} /></CarouselItem>)
+                            return (<CarouselItem key={url}><Image width={400} height={400} alt="img" loading="eager" className="rounded-2xl w-full h-full object-cover" src={url} /></CarouselItem>)
                         })}
                     </CarouselContent>
                 </Link>

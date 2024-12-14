@@ -8,7 +8,6 @@ import {
   authRoutes,
   publicRoutes,
 } from "@/routes";
-import { getUserRoleByEmail } from "./data/user";
 
 const { auth } = NextAuth(authConfig);
 //@ts-ignore

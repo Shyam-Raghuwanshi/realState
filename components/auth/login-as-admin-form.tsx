@@ -3,7 +3,7 @@
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { useState, useTransition } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { LoginSchema } from "@/schemas";
@@ -21,15 +21,9 @@ import { Button } from "@/components/ui/button";
 import { FormError } from "@/components/form-error";
 import { FormSuccess } from "@/components/form-success";
 import { login } from "@/actions/login";
-import Link from "next/link";
 
 export const AdminLoginForm = () => {
-  const searchParams = useSearchParams();
-  const urlError = searchParams.get("error") === "OAuthAccountNotLinked"
-    ? "Email already in use with different provider!"
-    : "";
-
-  const [showTwoFactor, setShowTwoFactor] = useState<boolean>(false);
+  const router = useRouter();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
@@ -54,9 +48,7 @@ export const AdminLoginForm = () => {
           if (data?.success) {
             form.reset();
             setSuccess(data.success);
-          }
-          if (data?.twoFactor) {
-            setShowTwoFactor(true);
+            router.push("/admin/");
           }
         }).catch(() => {
           setError("Something went wrong!")
@@ -66,11 +58,9 @@ export const AdminLoginForm = () => {
 
   return (
     <CardWrapper
-      headerText="Log in"
+      headerText="Log in as Admin"
       backButtonLabel="Don't have an account?"
       backButtonHref="/auth/register"
-      showSocial={!showTwoFactor}
-      socialText="Log in with"
     >
       <Form {...form}>
         <form
@@ -78,82 +68,49 @@ export const AdminLoginForm = () => {
           className="space-y-6"
         >
           <div className="space-y-4">
-            {!showTwoFactor ? (
-              <>
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Business Email</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          className="h-11"
-                          disabled={isPending}
-                          placeholder="name@work-email.com"
-                          type="email"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <Input
-                          {...field}
-                          className="h-11"
-                          disabled={isPending}
-                          placeholder="Enter your password"
-                          type="password"
-                        />
-                      </FormControl>
-                      <Button
-                        size="sm"
-                        variant="link"
-                        asChild
-                        className="px-0 font-normal"
-                      >
-                        <Link
-                          className="text-blue-700"
-                          href="/auth/reset"
-                        >
-                          Forget Password?
-                        </Link>
-                      </Button>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </>) : (
+            <>
               <FormField
                 control={form.control}
-                name="code"
+                name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Enter Two Factor Code that send on this email ***</FormLabel>
+                    <FormLabel>Admin Email</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
+                        className="h-11"
                         disabled={isPending}
-                        placeholder="123456"
-                        type="text"
+                        placeholder="admin@email.com"
+                        type="email"
                       />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
-            )
-            }
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Admin Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        className="h-11"
+                        disabled={isPending}
+                        placeholder="Enter your password"
+                        type="password"
+                      />
+                    </FormControl>
+                    
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </>
           </div>
-          <FormError message={error || urlError} />
+          <FormError message={error} />
           <FormSuccess message={success} />
           <Button
             disabled={isPending}
@@ -161,7 +118,7 @@ export const AdminLoginForm = () => {
             className="w-full bg-blue-700 hover:bg-blue-800 h-11"
 
           >
-            {showTwoFactor ? "Confirm" : "Log in"}
+            Log in
           </Button>
         </form>
       </Form>

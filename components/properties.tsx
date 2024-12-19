@@ -4,27 +4,7 @@ import PropertyCard from "./property-card";
 import { getPropertyDetails } from "@/actions/handleProperty";
 import { CardSkeleton } from "./card-skeleton";
 
-export default function Properties() {
-    const [isPending, startTransition] = useTransition();
-    const [data, setData] = useState<any>([]);
-
-    const loadData = useCallback(() => {
-        startTransition(() => {
-            (async () => {
-                try {
-                    const response = await getPropertyDetails();
-                    setData(response);
-                } catch (error) {
-                    setData([]);
-                }
-            })();
-        });
-    }, []);
-
-    useEffect(() => {
-        loadData()
-    }, [])
-
+export default function Properties({ data, isPending }: { data: any, isPending: boolean }) {
 
     if (isPending) {
         return (

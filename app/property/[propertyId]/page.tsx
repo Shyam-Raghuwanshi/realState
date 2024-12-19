@@ -65,7 +65,7 @@ export default function Page({ params }: { params: Promise<{ propertyId: string 
     return (
         <>
             <Navbar />
-            <div className="w-[638px] sm:w-auto flex flex-col justify-center items-center mt-4 pb-10 ">
+            <div className="w-[638px] sm:w-auto flex flex-col justify-center items-center mt-4">
                 <Dialog>
                     <div className="flex space-x-2 lg:grid lg:grid-cols-2 h-[426px] w-[638px] sm:w-full px-0 sm:px-4 md:px-10">
                         <DialogTrigger className="h-[426px]">
@@ -209,16 +209,16 @@ export default function Page({ params }: { params: Promise<{ propertyId: string 
                         </div>
                     </div>
                 </div >
-                <div className="h-[655px] flex flex-col space-y-4">
+                <div className="h-[705px] flex flex-col space-y-4">
                     <span className="text-[32px]">
-                        Explore the area
+                        Explore the area 
                     </span>
 
                     <div className="flex flex-col">
                         <span className="text-[16px] ">{streetAddress},{" "}{city},{" "} {state}</span>
-                        <GoogleMap latitude={latitude} altitude={altitude} />
+                        <GoogleMap />
                     </div>
-                    <div className="flex flex-col space-y-4">
+                    <div className="flex flex-col space-y-4 pb-14">
                         <span className="text-[24px]">Location Advantages</span>
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
                             <div className="flex space-x-1 items-center">

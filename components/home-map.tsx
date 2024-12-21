@@ -1,63 +1,102 @@
-"use client"
-import { useEffect, useState } from "react";
-import Script from "next/script";
+import {
+    GoogleMap,
+    Marker,
+    InfoWindow,
+    useJsApiLoader
+} from "@react-google-maps/api";
+import React, { useEffect, useMemo, useState } from "react";
+import MapPropertyCard from "./map-property-card";
 
-export default function Map({ isMap }: { isMap: boolean }) {
-    const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAP_KEY
-    const [mapWidth, setMapWidth] = useState(window.innerWidth)
-    const locations: { altitude: number, latitude: number }[] = [
-        { altitude: 53, latitude: 43 },
-        { altitude: 50, latitude: 40 },
-        { altitude: 51, latitude: 41 },
-        { altitude: 52, latitude: 42 },
-    ]
+const center = {
+    lat: -3.745,
+    lng: -38.523,
+}
 
-    useEffect(() => {
-        //@ts-ignore
-        window.initMap = function () {
-            const location = { lat: 54, lng: 44 };
-            //@ts-ignore
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 3,
-                center: location,
-            });
-            for (let i = 0; i < locations.length; i++) {
-                const element = locations[i];
-                const location = { lat: element.altitude, lng: element.latitude }
-                //@ts-ignore
-                new google.maps.Marker({
-                    position: location,
-                    map: map,
-                });
+const Map = ({ data, isPending }: { data: any, isPending: boolean }) => {
 
-            }
-        };
-    }, [isMap]);
+    const { isLoaded } = useJsApiLoader({
+        id: 'google-map-script',
+        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAP_KEY as string,
+    });
 
-    useEffect(() => {
-        const handleResize = () => {
-            const size = window.outerWidth;
-            if (size <= 638) {
-                setMapWidth(638);
-                return;
-            }
-            setMapWidth(size - 17);
-        };
+    const [map, setMap] = React.useState(null)
 
-        window.addEventListener("resize", handleResize);
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
+    const onLoad = React.useCallback(function callback(map: any) {
+        // This is just an example of getting and using the map instance!!! don't just blindly copy!
+        // const bounds = new window.google.maps.LatLngBounds(center)
+        // map.fitBounds(bounds)
+
+        setMap(map)
+    }, [])
+
+    const onUnmount = React.useCallback(function callback(map: any) {
+        setMap(null)
+    }, [])
+
+
+    const [hoveredLocation, setHoveredLocation] = useState<number | null>(null);
 
     return (
-        <>
-            <div id="map" style={{ width: mapWidth + "px", height: "700px" }} />
-            <Script
-                src={`https://maps.googleapis.com/maps/api/js?key=${apiKey}&callback=initMap`}
-                async={true}
-                defer
-            />
-        </>
+        <div className="w-full h-96">
+            {!isLoaded || isPending ? (
+                <p>Loading.....</p>
+            ) : (
+                <GoogleMap
+                    mapContainerStyle={{ height: "90vh", minWidth: "638px" }}
+                    zoom={2}
+                    center={center}
+                    onLoad={onLoad}
+                    onUnmount={onUnmount}
+                >
+                    {data && data.map((element: any) => (
+                        <React.Fragment key={element.id}>
+                            <Marker
+                                zIndex={999999}
+                                position={{
+                                    lat: element.location.latitude,
+                                    lng: element.location.altitude,
+                                }}
+                                onClick={() => setHoveredLocation((pre) => { return pre == null ? element.id : null })}
+                            />
+                            {hoveredLocation === element.id && (
+                                <InfoWindow
+                                    onDomReady={() => {
+                                        const element = document.querySelector(".gm-style-iw-c")
+                                        //@ts-ignore
+                                        element.style.paddingTop = "0px"
+                                        // gm-style-iw gm-style-iw-c
+                                        //@ts-ignore
+                                        element.style.paddingLeft = "0px"
+                                        const element2 = document.querySelector(".gm-style-iw-d")
+                                        //@ts-ignore
+                                        element2.style.overflow = "hidden"
+
+                                    }}
+                                    options={{
+                                        headerDisabled: true,
+                                        pixelOffset: {
+                                            height: -30, width: 0, equals(other) {
+                                                return other?.height === 3 && other?.width === 3;
+                                            },
+                                        }
+                                    }}
+                                    position={{
+                                        lat: element.location.latitude,
+                                        lng: element.location.altitude,
+                                    }}
+                                    onCloseClick={() => {
+                                        setHoveredLocation(null)
+                                    }}
+                                >
+                                    <MapPropertyCard setHoveredLocation={setHoveredLocation} data={element} />
+                                </InfoWindow>
+                            )}
+                        </React.Fragment>
+                    ))}
+                </GoogleMap>
+            )}
+        </div>
     );
-}
+};
+
+export default React.memo(Map)

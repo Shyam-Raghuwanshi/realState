@@ -319,7 +319,7 @@ export default function Page({
                 {streetAddress}, {city}, {state}
               </span>
               <span className="overflow-hidden max-w-screen-xl m-0 p-0">
-                <GoogleMap latitude={latitude} altitude={altitude} />
+                <GoogleMap />
               </span>
             </div>
             <div className="flex flex-col space-y-3">
